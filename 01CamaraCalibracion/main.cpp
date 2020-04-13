@@ -34,14 +34,13 @@ int main()
     unsigned int nSquares[2]={9,7}; // Numero de cuadrados del CHESSBOARD. [numero_cuadrados_horizontales, numero_cuadrados_verticales].
     float sizeSquares[2]={20,20};    // Tamaño de cuadrados del CHESSBOARD. [ancho, alto].
 
-    std::cout<<"Current path is "<<fs::current_path()<<endl;
 
 
     CalibradorCamara* ptr_calibradorCamara = new CalibradorCamara("GoPro (Carrefour)",nSquares,sizeSquares,worldPoints,imgPoints);
     // Creamos el vector de vectores de los puntos del CHESSBOARD referidos al sistema de referencia del mundo.
-    std::vector<std::string> imglist;
+    //std::vector<std::string> imglist;
     //ptr_calibradorCamara->addChessboardPoints(imglist);
-    ptr_calibradorCamara->display();
+    //ptr_calibradorCamara->display();
 
     delete ptr_calibradorCamara;    // Eliminamos puntero a objeto
 
