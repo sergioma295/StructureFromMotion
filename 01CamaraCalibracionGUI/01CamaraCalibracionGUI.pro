@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,15 +31,20 @@ LIBS += -lstdc++fs
 
 SOURCES += \
     calibradorcamara.cpp \
+    camerawidget.cpp \
     main.cpp \
     paginaprincipal.cpp
 
 HEADERS += \
     calibradorcamara.h \
+    camerawidget.h \
     paginaprincipal.h
 
 FORMS += \
+    camerawidget.ui \
     paginaprincipal.ui
+
+QMAKE_CXXFLAGS += -std=gnu++14
 
 TRANSLATIONS += \
     01CamaraCalibracionGUI_es_ES.ts
@@ -48,3 +53,12 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    Media/camera-icon1.png \
+    Media/camera-icon2.jpg \
+    Media/camera-icon2p.jpeg \
+    Media/chessboard-icon.jpg \
+    Media/chessboard-icon2p.jpeg \
+    Media/user-icon.png \
+    Media/user-icon2p.png

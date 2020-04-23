@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include <QDesktopWidget>
+#include <QMessageBox>
+#include "camerawidget.h"
+#include <QCameraInfo>
+#include <calibradorcamara.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class PaginaPrincipal; }
@@ -21,5 +25,8 @@ private slots:
 
 private:
     Ui::PaginaPrincipal *ui;
+    CameraWidget *mcameraWidget;
+    CalibradorCamara *calibrador;
+
 };
 #endif // PAGINAPRINCIPAL_H
