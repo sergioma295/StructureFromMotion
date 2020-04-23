@@ -6,6 +6,7 @@ CalibradorCamara::CalibradorCamara(const string& userId, const string& calibrati
     /*!
      * Constructor del objeto.
     */
+    cout<<"[INFO] Construyendo el objeto CalibradorCamara."<<endl;
     // Asignación de variables de ENTRADA.
     c_userId = userId;                      // Identificador de usuario
     c_calibrationId = calibrationId;        // Identificador de calibración. Nombre de la calibración
@@ -28,10 +29,10 @@ CalibradorCamara::CalibradorCamara(const string& userId, const string& calibrati
     // Inicialización y creación de la carpeta donde se almacenan los archivos de salida.
     c_saveImagePath = fs::current_path() + "/Output/ImagePoints/";
     if(!fs::exists(c_saveImagePath)){
-        cout<<"El directorio "<<c_saveImagePath<<" donde se guardan las imagenes de salida no existe y se creará."<<endl;
+        cout<<"[INFO] El directorio "<<c_saveImagePath<<" donde se guardan las imagenes de salida no existe y se creará."<<endl;
         fs::create_directories(c_saveImagePath);
     }else{
-        cout<<"El directorio "<<c_saveImagePath<<" existe. Compruebe su contenido cuando termine el proceso."<<endl;
+        cout<<"[INFO] El directorio "<<c_saveImagePath<<" existe. Compruebe su contenido cuando termine el proceso."<<endl;
     }
 }
 
@@ -41,63 +42,74 @@ CalibradorCamara::~CalibradorCamara()
     /*!
     Destructor de la clase CalibradorCamara.
     */
-    cout<<"Objeto Destruido"<<endl;
+    cout<<"[INFO] Objeto Destruido"<<endl;
 }
 
 
 // Métodos para obtener el valor de los miembros privados de la clase.
 string CalibradorCamara::getUserId(){
     /*! Obtener el ID del utilizado.*/
+    cout<<"[INFO] Obtener UserId"<<endl;
     return c_userId;
 }
 
 string CalibradorCamara::getCalibrationId(){
     /*! Obtener el ID de la calibración. */
+    cout<<"[INFO] Obtener CalibrationId"<<endl;
     return c_calibrationId;
 }
 
 int CalibradorCamara::getCameraIndex(){
     /*! Obtener el índice de la cámara utilizado. */
+    cout<<"[INFO] Obtener CameraIndex"<<endl;
     return c_cameraIndex;
 }
 
 std::vector<int> CalibradorCamara::getNumeroCuadros(){
     /*! Obtener el número de cuadros (horizontales y verticales) del chessboard.*/
+    cout<<"[INFO] Obtener Numero de Cuadros (horizontal,vertical)."<<endl;
     return {c_nHorizontalSquares, c_nVerticalSquares};
 }
 
 std::vector<float> CalibradorCamara::getSizeCuadros(){
     /*! Obtener el tamaño de los cuadros del chessboard (ancho,alto). */
+    cout<<"[INFO] Obtener tamaño de cuadros (ancho,alto)."<<endl;
     return {c_wSquares, c_hSquares};
 }
 
 int CalibradorCamara::getNumberoFrame(){
     /*! Obtener el número del frame actual.*/
+    cout<<"[INFO] Obtener número de frame"<<endl;
     return c_imgNum;
 }
 
 int CalibradorCamara::getNumeroTotalFrames(){
     /*! Obtener el número de frames totales utilizado.*/
+    cout<<"[INFO] Obtener número total de frames para la calibración."<<endl;
     return c_imgsTotales;
 }
 
 string CalibradorCamara::getComentarios(){
     /*!  Obtener los comentarios utilizados.*/
+    cout<<"[INFO] Obtener comentarios"<<endl;
     return c_comentarios;
 }
 
 string CalibradorCamara::getPath(){
     /*! Obtener el directorio de salida.*/
+    cout<<"[INFO] Obtener directorio de salida"<<endl;
     return c_saveImagePath;
 }
 
 std::vector<cv::Mat> CalibradorCamara::getImageList(){
     /*! Obtener la lista de imagenes almacenadas para la calibración.*/
+    cout<<"[INFO] Obtener lista de imagenes"<<endl;
     return c_imageCalibrationList;
 }
 
 std::vector<std::vector<cv::Point3f>> CalibradorCamara::getWorldPoints(){
      /*! Obtener lista de puntos de control de las vistas tomadas.*/
+    cout<<"[INFO] Obtener worldPoints"<<endl;
     return c_worldPoints;
 }
 
@@ -105,21 +117,25 @@ std::vector<std::vector<cv::Point3f>> CalibradorCamara::getWorldPoints(){
 // Métodos para modificar las variables privadas de la clase.
 void CalibradorCamara::incrementarNumeroFrame(){
     /*! Incrementar el número de Frame actaul..*/
+    cout<<"[INFO] Incrementar numero de frame"<<endl;
     c_imgNum++;
 }
 
 void CalibradorCamara::setNumeroFrame(int value){
     /*! Escribir el número de frame actuals*/
+    cout<<"[INFO] Set numero de frame"<<endl;
     c_imgNum = value;
 }
 
 void CalibradorCamara::addImageList(Mat view){
     /*! Añadir una imagen a la lista de imagenes utilizadas en la calibración*/
+    cout<<"[INFO] Añadir vista a lista de frames."<<endl;
     c_imageCalibrationList.push_back(view);
 }
 
 void CalibradorCamara::initImageList(){
      /*! Inicializar la lista de imágenes almacenadas para la calibración.*/
+    cout<<"[INFO] Inicializar la lista de imágenes almacenadas para la calibración."<<endl;
     c_imageCalibrationList.clear();
 }
 
@@ -127,6 +143,7 @@ int CalibradorCamara::createWorldPoints()
 {
     /*! Crea un vector de vectores con los puntos de control de cada frame (elementos de la lista) que se utilizarán en la calibración.
      * Contiene tantos elementos como número de imágenes indique el usuario.*/
+    cout<<"[INFO] Crear vector worldpoints"<<endl;
 
     // Comprobamos que está vacío. Si no lo está, devuelve error.
     if(!c_worldPoints.size()==0)
@@ -199,6 +216,8 @@ int CalibradorCamara::createWorldPoints()
 
 void CalibradorCamara::addImagePoints(){
     /*! Añadir los puntos de control encontrados en el plano de la imagen. */
+    cout<<"[INFO] Añadir imagePoints."<<endl;
+
 }
 
 
@@ -208,6 +227,7 @@ cv::Mat CalibradorCamara::searchImagePoints(cv::Mat imgView){
     /* Esta función se utiliza para previsualizar en pantalla si se han encontrado los puntos de control en el plano de la imagen y posteriormente
        capturar dicha vista.
     */
+    cout<<"[INFO] Buscar puntos de control en el plano de la imagen (aproximado)."<<endl;
 
     // Definición de una matriz para almacenar la imagen en escala de grises.
     cv::Mat imgView_gray;
@@ -226,8 +246,10 @@ cv::Mat CalibradorCamara::searchImagePoints(cv::Mat imgView){
 }
 
 void CalibradorCamara::calibrar(int nframe){
-    /*! Calibra la cámara con la lista de imagenes de control almacenadas.*/
-    imshow("Imagen",c_imageCalibrationList[nframe]);
-    waitKey();
+    /*!
+     * \brief Calibra la cámara con la lista de imagenes de control almacenadas.
+    */
+    cv::Mat view = c_imageCalibrationList[nframe];
+    sleep(1);
 
 }

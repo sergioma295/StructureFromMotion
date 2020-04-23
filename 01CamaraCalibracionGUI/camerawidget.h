@@ -15,10 +15,13 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <QMessageBox>
-#include <QProgressDialog>
+#include <QDialog>
+#include <QProgressBar>
 #include <QtConcurrent/QtConcurrent>
 #include <QThread>
 #include <QFutureWatcher>
+#include <QDebug>
+
 using namespace cv;
 
 namespace Ui {
@@ -42,11 +45,15 @@ public:
     explicit CameraWidget(CalibradorCamara&, QWidget *parent = nullptr);
     ~CameraWidget();
 
+    void Calibrar();        // Tarea de calibración.
+
  private slots:
     void actualizarVentana();
     void on_pb_Capturar_clicked();
     void apagarCamara();
     void encenderCamara();
+    void performCalibrar();
+    void cancelCalibrar();
 
 private:
     Ui::CameraWidget *ui;
@@ -59,17 +66,22 @@ private:
     CalibradorCamara *mcalibradorCamara;
 
     // Variables para visualizar la imagen
-    QTimer *mtimer;
+    QTimer *mtimerActualizarVentana;
     cv::VideoCapture mcamera_capture;
     cv::Mat mframe;
     cv::Mat mframeOriginal;
     QImage mqt_image;
 
-    // Progressbar
+    // ProgressDialog
     float mProgresoCalibracion;
 
     // Funciones.
     void actualizarResumen();
+
+    // Variables para la tarea de calibración.
+    int mstep;
+    QProgressDialog *mprogressDialog;
+    QTimer *mtimerProgressDialog;
 
 
 };

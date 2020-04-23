@@ -13,6 +13,13 @@
 #include "opencv2/videoio.hpp"
 #include "opencv2/highgui.hpp"
 #include <experimental/filesystem>
+#include <QDebug>
+#include <QObject>
+#include <QProgressDialog>
+#include <QTimer>
+#include <unistd.h>
+#include <iostream>
+#include <cstdlib>
 
 // Namespaces
 using namespace std;
@@ -45,14 +52,14 @@ public:
     // Métodos para modificar las variables privadas de la clase.
     void incrementarNumeroFrame();                  // SISTEMA.
     void setNumeroFrame(int);                       // SISTEMA.
-    void addImageList(Mat);                     // SISTEMA.
+    void addImageList(Mat);                         // SISTEMA.
     void initImageList();                           // SISTEMA.
     int createWorldPoints();                        // SISTEMA.
     void addImagePoints();                          // SISTEMA.
 
     // Métodos de la calibración.
-    cv::Mat searchImagePoints(cv::Mat);             // SISTEMA.
-    void calibrar(int);                             // SISTEMA.
+    cv::Mat searchImagePoints(cv::Mat);                               // SISTEMA.
+    void calibrar(int);                                               // SISTEMA.
 
 
 private:
@@ -78,6 +85,7 @@ private:
     cv::Mat c_mInstrs;              // Matriz parámetros extrínsecos
     cv::Mat c_coeffDist;            // Vector de coeficientes de distorsión.
     std::string c_saveImagePath;    // Directorio donde se almacena la salida del algoritmo de calibración en distintos tipos de ficheros (.jpg, .csv).
+
 };
 
 #endif // CALIBRADORCAMARA_H
